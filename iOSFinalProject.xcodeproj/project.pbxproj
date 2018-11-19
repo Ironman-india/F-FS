@@ -43,7 +43,7 @@
 		D6F47D502190C9AD00B8F2F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6F47D552190C9AD00B8F2F0 /* iOSFinalProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSFinalProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6F47D592190C9AD00B8F2F0 /* iOSFinalProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSFinalProjectTests.swift; sourceTree = "<group>"; };
-		D6F47D5B2190C9AD00B8F2F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6F47D5B2190C9AD00B8F2F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = iOSFinalProjectTests/Info.plist; sourceTree = SOURCE_ROOT; };
 		D6F47D602190C9AD00B8F2F0 /* iOSFinalProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSFinalProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6F47D642190C9AD00B8F2F0 /* iOSFinalProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSFinalProjectUITests.swift; sourceTree = "<group>"; };
 		D6F47D662190C9AD00B8F2F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,6 +101,7 @@
 				D6F47D462190C9AB00B8F2F0 /* ViewController.swift */,
 				D6F47D482190C9AB00B8F2F0 /* Main.storyboard */,
 				D6F47D4B2190C9AD00B8F2F0 /* Assets.xcassets */,
+				D6F47D5B2190C9AD00B8F2F0 /* Info.plist */,
 				D6F47D4D2190C9AD00B8F2F0 /* LaunchScreen.storyboard */,
 				D6F47D502190C9AD00B8F2F0 /* Info.plist */,
 			);
@@ -111,7 +112,6 @@
 			isa = PBXGroup;
 			children = (
 				D6F47D592190C9AD00B8F2F0 /* iOSFinalProjectTests.swift */,
-				D6F47D5B2190C9AD00B8F2F0 /* Info.plist */,
 			);
 			path = iOSFinalProjectTests;
 			sourceTree = "<group>";
