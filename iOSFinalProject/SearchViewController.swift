@@ -10,6 +10,10 @@ import UIKit
 
 class SearchViewController: UIViewController {
 
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

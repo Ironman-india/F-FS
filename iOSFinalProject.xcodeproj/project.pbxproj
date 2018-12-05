@@ -11,6 +11,9 @@
 		94AAE6E9173A2EF9012417D1 /* Pods_iOSFinalProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C976B81371F7CA99E526DF /* Pods_iOSFinalProjectTests.framework */; };
 		B691D06C00750E7343DEF7A5 /* Pods_iOSFinalProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6A4A5759909F4286AC7CF71 /* Pods_iOSFinalProject.framework */; };
 		D60FB82121A35E5E00430BC3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D60FB82021A35E5E00430BC3 /* GoogleService-Info.plist */; };
+		D644E43A21B7125800FDB395 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D644E43921B7125800FDB395 /* PostViewController.swift */; };
+		D644E43C21B7127C00FDB395 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D644E43B21B7127C00FDB395 /* PostTableViewCell.swift */; };
+		D644E43E21B7295300FDB395 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = D644E43D21B7295300FDB395 /* Post.swift */; };
 		D66F33B621B5C91F0032394E /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66F33B521B5C91F0032394E /* FeedViewController.swift */; };
 		D66F33B821B5C94B0032394E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66F33B721B5C94B0032394E /* ProfileViewController.swift */; };
 		D66F33BA21B5C9640032394E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66F33B921B5C9640032394E /* SearchViewController.swift */; };
@@ -52,6 +55,9 @@
 		B5C976B81371F7CA99E526DF /* Pods_iOSFinalProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSFinalProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE6ED7E8170F68BF07986A5D /* Pods-iOSFinalProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSFinalProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSFinalProjectUITests/Pods-iOSFinalProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D60FB82021A35E5E00430BC3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D644E43921B7125800FDB395 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		D644E43B21B7127C00FDB395 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		D644E43D21B7295300FDB395 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		D66F33B521B5C91F0032394E /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		D66F33B721B5C94B0032394E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D66F33B921B5C9640032394E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -168,6 +174,9 @@
 				D6F47D4B2190C9AD00B8F2F0 /* Assets.xcassets */,
 				D6F47D4D2190C9AD00B8F2F0 /* LaunchScreen.storyboard */,
 				D6F47D482190C9AB00B8F2F0 /* Main.storyboard */,
+				D644E43B21B7127C00FDB395 /* PostTableViewCell.swift */,
+				D644E43921B7125800FDB395 /* PostViewController.swift */,
+				D644E43D21B7295300FDB395 /* Post.swift */,
 			);
 			path = iOSFinalProject;
 			sourceTree = "<group>";
@@ -352,14 +361,18 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-iOSFinalProject/Pods-iOSFinalProject-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -418,10 +431,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D644E43C21B7127C00FDB395 /* PostTableViewCell.swift in Sources */,
 				D66F33BA21B5C9640032394E /* SearchViewController.swift in Sources */,
 				D66F33BE21B5C9AC0032394E /* ForgotPasswordViewController.swift in Sources */,
+				D644E43E21B7295300FDB395 /* Post.swift in Sources */,
 				D6F47D472190C9AB00B8F2F0 /* ViewController.swift in Sources */,
 				D66F33BC21B5C98E0032394E /* SettingsTableViewController.swift in Sources */,
+				D644E43A21B7125800FDB395 /* PostViewController.swift in Sources */,
 				D66F33C021B5C9C20032394E /* SignInViewController.swift in Sources */,
 				D66F33B621B5C91F0032394E /* FeedViewController.swift in Sources */,
 				D66F33C221B5C9CE0032394E /* SignUpViewController.swift in Sources */,
