@@ -22,34 +22,24 @@ class Post {
     var storage: Storage!
     var storageRef: StorageReference!
     var indexPath: IndexPath!
+    var dispatchGroup: DispatchGroup!
     
-    init() {
-        name = ""
-        description = ""
-        imageUrl = ""
-        //image = UIImage(named: "camera.png")
-        price = ""
-        email = ""
-        storage = Storage.storage()
-        //let url = "https://firebasestorage.googleapis.com/v0/b/freeandforsale-d7f0f.appspot.com/o/scooter.png?alt=media&token=c85aa5c1-58ff-4329-ac0d-bc2c2b50008a"
-        //setImage(url: url)
-    }
-    
-    init(n:String, d:String, p: String, e: String){
+    init(n:String, d:String, p: String, e: String, im: UIImage){
         name = n
         description = d
         imageUrl = ""
         //image = UIImage(named: "camera.png")
         price = p
         email = e
-        storage = Storage.storage()
+        self.image = im
     }
     
     func setImage(url: String){
         storageRef = storage.reference(forURL: url)
-        storageRef.getData(maxSize: 1*2048*2048) { (data, error) in
+        storageRef.getData(maxSize: 1*2560*2560) { (data, error) in
             if error == nil {
                 self.image = UIImage(data: data!)
+                self.dispatchGroup.leave()
             }else{
                 print(error?.localizedDescription ?? "")
             }

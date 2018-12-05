@@ -17,7 +17,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     var dispatchGroup: DispatchGroup!
     var databaseRef: DatabaseReference!
     var storageRef: StorageReference!
-    var postArray: [Post]!
+    var postArray = [Post]()
+    var sendingPost: Post!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,64 +28,66 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         databaseRef = Database.database().reference()
         dispatchGroup = DispatchGroup()
         self.title = "NYU"
-    
-        loadData()
+        loadPosts()
+        //loadData()
     }
     
-    func loadData(){
-        
-        postArray = Array()
-        
-        for _ in 1...30 {
-            let testPost = Post()
-            postArray.append(testPost)
-        }
-        
-        let newestRef = databaseRef.child("Schools").child("NYU").child("Posts").queryLimited(toLast: 30)
-        dispatchGroup.enter()
-        newestRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
-            //self.newestPostNum = snapshot.value as? String
-            let dict = snapshot.value as! Dictionary<String, Any>
-            var count = 0
-            for(_, value) in dict {
-                let postDict = value as! Dictionary<String, String>
-                self.postArray[count].name = postDict["name"]
-                self.postArray[count].description = postDict["description"]
-                self.postArray[count].email = postDict["email"]
-                self.postArray[count].price = postDict["price"]
-                self.postArray[count].setImage(url: postDict["imageUrl"]!)
-                count += 1
+    func loadPosts() {
+        databaseRef.child("Schools").child("NYU").child("Posts").observe(.childAdded) { (snapshot) in
+            if let dict = snapshot.value as? [String: Any] {
+                let name = dict["name"] as! String
+                let description = dict["description"] as! String
+                //let email = dict["email"] as! String
+                let price = dict["price"] as! String
+                let imageUrl = dict["imageUrl"] as! String
+                let storRef = Storage.storage().reference(forURL: imageUrl)
+                storRef.getData(maxSize: 1*2560*2560) { (data, error) in
+                    if error == nil {
+                        let image = UIImage(data: data!)
+                        let post = Post(n: name, d: description, p: price, e: "", im: image!)
+                        self.postArray.append(post)
+                        self.tableView.reloadData()
+                    }else{
+                        print(error?.localizedDescription ?? "")
+                    }
+                }
             }
-            self.dispatchGroup.leave()
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-        
-        dispatchGroup.notify(queue: .main) {
-            self.tableView.reloadData()
         }
     }
     
-    @IBAction func refreshPosts(_ sender: Any) {
-        loadData()
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        sendingPost = postArray[indexPath.row]
+        self.performSegue(withIdentifier: "FeedPostSegue", sender: self)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return postArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
         
-        let post = postArray![indexPath.row]
-        postArray[indexPath.row].indexPath = indexPath
+        let post = postArray[indexPath.row]
         cell.postName.text = post.name
         cell.postPrice.text = post.price
         cell.postDescription.text = post.description
         cell.postImage.image = post.image
+        
         return cell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? ViewPostViewController {
+            vc.name = sendingPost.name
+            vc.price = sendingPost.price
+            vc.desc = sendingPost.description
+            vc.image = sendingPost.image
+        }
+    }
 }
+
+
 
 
 /*dispatchGroup.notify(queue: .main) {

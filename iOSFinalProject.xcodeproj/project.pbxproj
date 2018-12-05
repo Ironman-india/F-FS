@@ -21,6 +21,8 @@
 		D66F33BE21B5C9AC0032394E /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66F33BD21B5C9AC0032394E /* ForgotPasswordViewController.swift */; };
 		D66F33C021B5C9C20032394E /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66F33BF21B5C9C20032394E /* SignInViewController.swift */; };
 		D66F33C221B5C9CE0032394E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66F33C121B5C9CE0032394E /* SignUpViewController.swift */; };
+		D6E70A7C21B777C000913091 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D644E43B21B7127C00FDB395 /* PostTableViewCell.swift */; };
+		D6E70A7E21B788F700913091 /* ViewPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E70A7D21B788F700913091 /* ViewPostViewController.swift */; };
 		D6F47D452190C9AB00B8F2F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F47D442190C9AB00B8F2F0 /* AppDelegate.swift */; };
 		D6F47D472190C9AB00B8F2F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F47D462190C9AB00B8F2F0 /* ViewController.swift */; };
 		D6F47D4A2190C9AB00B8F2F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6F47D482190C9AB00B8F2F0 /* Main.storyboard */; };
@@ -65,6 +67,7 @@
 		D66F33BD21B5C9AC0032394E /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		D66F33BF21B5C9C20032394E /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		D66F33C121B5C9CE0032394E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		D6E70A7D21B788F700913091 /* ViewPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPostViewController.swift; sourceTree = "<group>"; };
 		D6F47D412190C9AB00B8F2F0 /* iOSFinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSFinalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6F47D442190C9AB00B8F2F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6F47D462190C9AB00B8F2F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,7 +77,6 @@
 		D6F47D502190C9AD00B8F2F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6F47D552190C9AD00B8F2F0 /* iOSFinalProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSFinalProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6F47D592190C9AD00B8F2F0 /* iOSFinalProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSFinalProjectTests.swift; sourceTree = "<group>"; };
-		D6F47D5B2190C9AD00B8F2F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = iOSFinalProjectTests/Info.plist; sourceTree = SOURCE_ROOT; };
 		D6F47D602190C9AD00B8F2F0 /* iOSFinalProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSFinalProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6F47D642190C9AD00B8F2F0 /* iOSFinalProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSFinalProjectUITests.swift; sourceTree = "<group>"; };
 		D6F47D662190C9AD00B8F2F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -160,7 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				D60FB82021A35E5E00430BC3 /* GoogleService-Info.plist */,
-				D6F47D5B2190C9AD00B8F2F0 /* Info.plist */,
 				D6F47D502190C9AD00B8F2F0 /* Info.plist */,
 				D6F47D442190C9AB00B8F2F0 /* AppDelegate.swift */,
 				D66F33B521B5C91F0032394E /* FeedViewController.swift */,
@@ -177,6 +178,7 @@
 				D644E43B21B7127C00FDB395 /* PostTableViewCell.swift */,
 				D644E43921B7125800FDB395 /* PostViewController.swift */,
 				D644E43D21B7295300FDB395 /* Post.swift */,
+				D6E70A7D21B788F700913091 /* ViewPostViewController.swift */,
 			);
 			path = iOSFinalProject;
 			sourceTree = "<group>";
@@ -437,6 +439,7 @@
 				D644E43E21B7295300FDB395 /* Post.swift in Sources */,
 				D6F47D472190C9AB00B8F2F0 /* ViewController.swift in Sources */,
 				D66F33BC21B5C98E0032394E /* SettingsTableViewController.swift in Sources */,
+				D6E70A7E21B788F700913091 /* ViewPostViewController.swift in Sources */,
 				D644E43A21B7125800FDB395 /* PostViewController.swift in Sources */,
 				D66F33C021B5C9C20032394E /* SignInViewController.swift in Sources */,
 				D66F33B621B5C91F0032394E /* FeedViewController.swift in Sources */,
@@ -459,6 +462,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6F47D652190C9AD00B8F2F0 /* iOSFinalProjectUITests.swift in Sources */,
+				D6E70A7C21B777C000913091 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

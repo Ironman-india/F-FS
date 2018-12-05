@@ -11,7 +11,7 @@ import Firebase
 import FirebaseStorage
 import FirebaseDatabase
 
-class PostViewController: UIViewController, UITextFieldDelegate{
+class PostViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
 
     @IBOutlet weak var uploadPhotoButton: UIButton!
     @IBOutlet weak var postImage: UIImageView!
@@ -26,42 +26,149 @@ class PostViewController: UIViewController, UITextFieldDelegate{
         postName.delegate = self
         storageRef = Storage.storage().reference()
         databaseRef = Database.database().reference()
+        postDescription.layer.borderWidth = 1
+        postDescription.layer.borderColor = UIColor.groupTableViewBackground.cgColor
+        postDescription.layer.cornerRadius = 5.0
+        
         // Do any additional setup after loading the view.
     }
     
     @IBAction func uploadPhoto(_ sender: Any) {
+        showActionSheet()
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            postImage.image = image
+            postImage.image = resizeImage(image: postImage.image!, targetSize: CGSize(width: 500, height: 500))
+        }
+        uploadPhotoButton.setTitle("", for: .normal)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func camera()
+    {
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            let myPickerController = UIImagePickerController()
+            myPickerController.delegate = self;
+            myPickerController.sourceType = .camera
+            self.present(myPickerController, animated: true, completion: nil)
+        }
         
+    }
+    
+    func photoLibrary()
+    {
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            let myPickerController = UIImagePickerController()
+            myPickerController.delegate = self;
+            myPickerController.sourceType = .photoLibrary
+            self.present(myPickerController, animated: true, completion: nil)
+        }
+        
+    }
+    
+    func showActionSheet() {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (alert:UIAlertAction!) -> Void in
+            self.camera()
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (alert:UIAlertAction!) -> Void in
+            self.photoLibrary()
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
     }
     
     @IBAction func postItem(_ sender: Any) {
         if(postName.text != ""){
-            if(postDescription.text != "" || postDescription.text != "Write a description"){
-                if(postImage != nil){
-                    sendPost()
+            if(postPrice.text != "") {
+                if(postDescription.text != "" || postDescription.text != "Write a description"){
+                    if(postImage != nil){
+                        sendPost()
+                    }else{
+                        sendAlert(alert: "You need to add an image")
+                    }
                 }else{
-                    //alert user to add description
+                    sendAlert(alert: "You need to write a description")
                 }
             }else{
-                //alert user to add description
+                sendAlert(alert: "How much do you want for your item?")
             }
         }else{
-            //alert user to add a username
+            sendAlert(alert: "What's the name of your item?")
         }
     }
     
+    func sendAlert(alert:String) {
+        let alert = UIAlertController(title: "Can't post item", message: alert, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+        self.present(alert, animated: true)
+    }
+    
+    
     func sendPost(){
-        let postInfo = ["description": postDescription.text, "name": postName.text, "price": postPrice.text]
-        let postRef = databaseRef.child("Schools").child("NYU").child("Posts").childByAutoId()
-        postRef.setValue(postInfo)
+        
+        let resizedImage = resizeImage(image: postImage.image!, targetSize: CGSize(width: 500, height: 500))
+        
+        if let data = resizedImage.pngData() {
+            let photoRef = storageRef.child(postName.text! + ".png")
+            let uploadTask = photoRef.putData(data, metadata: nil) { (metadata, error) in
+                guard let metadata = metadata else {
+                    // Uh-oh, an error occurred!
+                    return
+                }
+                //let size = metadata.size
+                // You can also access to download URL after upload.
+                photoRef.downloadURL { (url, error) in
+                    guard let downloadURL = url else {
+                        // Uh-oh, an error occurred!
+                        return
+                    }
+                    let newUrl = downloadURL.absoluteString
+                    let desc = self.postDescription.text
+                    let name = self.postName.text
+                    let price = self.postPrice.text
+                    let postInfo = ["description": desc, "name": name, "price": price, "imageUrl": newUrl]
+                    let postRef = self.databaseRef.child("Schools").child("NYU").child("Posts").childByAutoId()
+                    postRef.setValue(postInfo)
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
+        self.dismiss(animated: true, completion: nil)
+        
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        print(size)
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        print(newImage?.size)
+        return newImage!
     }
-    */
-
 }
