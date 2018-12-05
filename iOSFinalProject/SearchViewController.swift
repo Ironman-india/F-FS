@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UITextField!
@@ -22,9 +22,41 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
         databaseRef = Database.database().reference()
-        // Do any additional setup after loading the view.
+        
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = true
+        self.view.addGestureRecognizer(tap)
+        
     }
+    
+    @IBAction func searchPressed(_ sender: Any) {
+        postArray = [Post]()
+        tableView.reloadData()
+        loadPosts()
+        searchBar.resignFirstResponder()
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        searchBar.selectAll(self)
+    }
+    
+    /*func  textFieldDidEndEditing(_ textField: UITextField) {
+        postArray = [Post]()
+        tableView.reloadData()
+        loadPosts()
+        searchBar.resignFirstResponder()
+    }*/
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        postArray = [Post]()
+        tableView.reloadData()
+        loadPosts()
+        searchBar.resignFirstResponder()
+        return true
+    }
+    
 
     func loadPosts() {
         databaseRef.child("Schools").child("NYU").child("Posts").queryOrdered(byChild: "name").queryEqual(toValue: searchBar.text).observe(.childAdded) { (snapshot) in

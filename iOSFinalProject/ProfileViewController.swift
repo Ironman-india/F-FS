@@ -28,10 +28,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         profileDescription.text = "I'm a senior computer science student and am looking to get rid of my old stuff."
         schoolName.text = "NYU"
         self.title = "Michael Anastasio"
-        
+       
         loadPosts()
         // Do any additional setup after loading the view.
     }
+    
+    
     
     func loadPosts() {
         Database.database().reference().child("Schools").child("NYU").child("Posts").queryOrdered(byChild: "email").queryEqual(toValue: "ma4976@nyu.edu").observe(.childAdded) { (snapshot) in
@@ -55,6 +57,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
     }
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postArray.count

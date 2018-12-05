@@ -11,7 +11,7 @@ import Firebase
 import FirebaseStorage
 import FirebaseDatabase
 
-class PostViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
+class PostViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var uploadPhotoButton: UIButton!
     @IBOutlet weak var postImage: UIImageView!
@@ -24,13 +24,44 @@ class PostViewController: UIViewController, UITextFieldDelegate, UINavigationCon
     override func viewDidLoad() {
         super.viewDidLoad()
         postName.delegate = self
+        postDescription.delegate = self
         storageRef = Storage.storage().reference()
         databaseRef = Database.database().reference()
         postDescription.layer.borderWidth = 1
         postDescription.layer.borderColor = UIColor.groupTableViewBackground.cgColor
         postDescription.layer.cornerRadius = 5.0
         
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
         // Do any additional setup after loading the view.
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        //self.view.frame.origin.y -= keyboardSize.height
+    }
+    
+    func  textFieldDidEndEditing(_ textField: UITextField) {
+        self.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.resignFirstResponder()
+        return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        postDescription.selectAll(self)
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y -= 150
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        UIView.animate(withDuration: 0.3) {
+            self.view.frame.origin.y += 150
+        }
+        self.resignFirstResponder()
     }
     
     @IBAction func uploadPhoto(_ sender: Any) {
