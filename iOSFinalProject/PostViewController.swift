@@ -74,6 +74,11 @@ class PostViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
             postImage.image = resizeImage(image: postImage.image!, targetSize: CGSize(width: 500, height: 500))
         }
         uploadPhotoButton.setTitle("", for: .normal)
+        uploadPhotoButton.backgroundColor = UIColor.clear
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func dismissView() {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -168,11 +173,11 @@ class PostViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
                     let postInfo = ["description": desc, "name": name, "price": price, "imageUrl": newUrl]
                     let postRef = self.databaseRef.child("Schools").child("NYU").child("Posts").childByAutoId()
                     postRef.setValue(postInfo)
-                    self.dismiss(animated: true, completion: nil)
+                    self.dismissView()
                 }
             }
         }
-        self.dismiss(animated: true, completion: nil)
+        self.dismissView()
         
     }
     

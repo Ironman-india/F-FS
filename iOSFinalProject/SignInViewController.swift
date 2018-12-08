@@ -10,13 +10,21 @@ import UIKit
 
 class SignInViewController: UIViewController {
 
+    @IBOutlet weak var emailText: UITextField!
+    @IBOutlet weak var passwordText: UITextField!
+    @IBOutlet weak var signInButton: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func signInPressed(_ sender: Any) {
+        
+    }
+    
     /*
     // MARK: - Navigation
 
