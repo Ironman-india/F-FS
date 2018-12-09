@@ -26,18 +26,28 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.delegate = self
         tableView.dataSource = self
         profileImage.image = UIImage(named: "noPhoto.png")
-        profileDescription.text = "I'm a senior computer science student and am looking to get rid of my old stuff."
-        schoolName.text = "NYU"
-        self.title = "Michael Anastasio"
-       
-        loadPosts()
+        
+        let dbRef = Database.database().reference().child("Schools").child((Auth.auth().currentUser?.displayName)!).child("Users").queryOrdered(byChild: "email").queryEqual(toValue: Auth.auth().currentUser?.email)
+        dbRef.observe(.value) { (snapshot) in
+            if let dict = snapshot.value as? Dictionary<String, Any> {
+                if let userInfo = dict.values.first as? Dictionary<String, Any> {
+                    self.title = userInfo["username"] as? String
+                    self.profileDescription.text = userInfo["description"] as? String
+                    self.schoolName.text = Auth.auth().currentUser?.displayName
+                    self.loadPosts(userInfo: userInfo)
+                }
+                //print(userInfo["username"])
+            }
+        }
+        
+        
         // Do any additional setup after loading the view.
     }
     
     
     
-    func loadPosts() {
-        Database.database().reference().child("Schools").child("NYU").child("Posts").queryOrdered(byChild: "email").queryEqual(toValue: "ma4976@nyu.edu").observe(.childAdded) { (snapshot) in
+    func loadPosts(userInfo: Dictionary<String, Any>) {
+        Database.database().reference().child("Schools").child((Auth.auth().currentUser?.displayName)!).child("Posts").queryOrdered(byChild: "email").queryEqual(toValue: userInfo["email"]).observe(.childAdded) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 let name = dict["name"] as! String
                 let description = dict["description"] as! String
@@ -91,4 +101,27 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             vc.image = sendingPost.image
         }
     }
+    
+    @IBAction func logOutPressed(_ sender: Any) {
+        
+        let alertController = UIAlertController(title: "Are you sure you want to log out?", message: "", preferredStyle: .alert)
+        
+        let noAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+            do{
+                try Auth.auth().signOut()
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let signInVC = storyboard.instantiateViewController(withIdentifier: "SignInViewController")
+                self.present(signInVC, animated: true, completion: nil)
+            }catch let error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        alertController.addAction(noAction)
+        alertController.addAction(yesAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
 }

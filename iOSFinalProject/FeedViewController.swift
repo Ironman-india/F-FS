@@ -27,13 +27,13 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         storageRef = Storage.storage().reference()
         databaseRef = Database.database().reference()
         dispatchGroup = DispatchGroup()
-        self.title = "NYU"
+        self.title = Auth.auth().currentUser?.displayName
         loadPosts()
         //loadData()
     }
     
     func loadPosts() {
-        databaseRef.child("Schools").child("NYU").child("Posts").observe(.childAdded) { (snapshot) in
+        databaseRef.child("Schools").child((Auth.auth().currentUser?.displayName)!).child("Posts").observe(.childAdded) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 let name = dict["name"] as! String
                 let description = dict["description"] as! String
@@ -79,6 +79,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? ViewPostViewController {
+            vc.post = sendingPost
             vc.name = sendingPost.name
             vc.price = sendingPost.price
             vc.desc = sendingPost.description

@@ -15,6 +15,7 @@ class ViewPostViewController: UIViewController {
     @IBOutlet weak var postPrice: UILabel!
     @IBOutlet weak var postName: UILabel!
     
+    var post:Post!
     var name = ""
     var price = ""
     var desc = ""
@@ -30,6 +31,15 @@ class ViewPostViewController: UIViewController {
         postDescription.text = desc
         postPrice.text = price
         postImage.image = image
+    }
+    @IBAction func viewCommentsPressed(_ sender: Any) {
+        performSegue(withIdentifier: "ShowCommentsSegue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? CommentsViewController {
+            vc.itemName = name
+        }
     }
     
 }

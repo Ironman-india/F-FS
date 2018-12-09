@@ -14,6 +14,9 @@
 		D644E43A21B7125800FDB395 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D644E43921B7125800FDB395 /* PostViewController.swift */; };
 		D644E43C21B7127C00FDB395 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D644E43B21B7127C00FDB395 /* PostTableViewCell.swift */; };
 		D644E43E21B7295300FDB395 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = D644E43D21B7295300FDB395 /* Post.swift */; };
+		D652AC3221BD7DB400ACB8C1 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D652AC3121BD7DB400ACB8C1 /* CommentsViewController.swift */; };
+		D652AC3421BD804900ACB8C1 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D652AC3321BD804900ACB8C1 /* CommentTableViewCell.swift */; };
+		D652AC3621BD813100ACB8C1 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D652AC3521BD813100ACB8C1 /* Comment.swift */; };
 		D66F33B621B5C91F0032394E /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66F33B521B5C91F0032394E /* FeedViewController.swift */; };
 		D66F33B821B5C94B0032394E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66F33B721B5C94B0032394E /* ProfileViewController.swift */; };
 		D66F33BA21B5C9640032394E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66F33B921B5C9640032394E /* SearchViewController.swift */; };
@@ -60,6 +63,9 @@
 		D644E43921B7125800FDB395 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		D644E43B21B7127C00FDB395 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		D644E43D21B7295300FDB395 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		D652AC3121BD7DB400ACB8C1 /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		D652AC3321BD804900ACB8C1 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		D652AC3521BD813100ACB8C1 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		D66F33B521B5C91F0032394E /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		D66F33B721B5C94B0032394E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D66F33B921B5C9640032394E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +181,9 @@
 				D6F47D4B2190C9AD00B8F2F0 /* Assets.xcassets */,
 				D6F47D4D2190C9AD00B8F2F0 /* LaunchScreen.storyboard */,
 				D6F47D482190C9AB00B8F2F0 /* Main.storyboard */,
+				D652AC3321BD804900ACB8C1 /* CommentTableViewCell.swift */,
+				D652AC3521BD813100ACB8C1 /* Comment.swift */,
+				D652AC3121BD7DB400ACB8C1 /* CommentsViewController.swift */,
 				D644E43B21B7127C00FDB395 /* PostTableViewCell.swift */,
 				D644E43921B7125800FDB395 /* PostViewController.swift */,
 				D644E43D21B7295300FDB395 /* Post.swift */,
@@ -435,13 +444,16 @@
 			files = (
 				D644E43C21B7127C00FDB395 /* PostTableViewCell.swift in Sources */,
 				D66F33BA21B5C9640032394E /* SearchViewController.swift in Sources */,
+				D652AC3221BD7DB400ACB8C1 /* CommentsViewController.swift in Sources */,
 				D66F33BE21B5C9AC0032394E /* ForgotPasswordViewController.swift in Sources */,
 				D644E43E21B7295300FDB395 /* Post.swift in Sources */,
 				D6F47D472190C9AB00B8F2F0 /* ViewController.swift in Sources */,
 				D66F33BC21B5C98E0032394E /* SettingsTableViewController.swift in Sources */,
+				D652AC3421BD804900ACB8C1 /* CommentTableViewCell.swift in Sources */,
 				D6E70A7E21B788F700913091 /* ViewPostViewController.swift in Sources */,
 				D644E43A21B7125800FDB395 /* PostViewController.swift in Sources */,
 				D66F33C021B5C9C20032394E /* SignInViewController.swift in Sources */,
+				D652AC3621BD813100ACB8C1 /* Comment.swift in Sources */,
 				D66F33B621B5C91F0032394E /* FeedViewController.swift in Sources */,
 				D66F33C221B5C9CE0032394E /* SignUpViewController.swift in Sources */,
 				D66F33B821B5C94B0032394E /* ProfileViewController.swift in Sources */,

@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import FirebaseAuth
 
 class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
@@ -26,7 +27,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         databaseRef = Database.database().reference()
         
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
-        tap.cancelsTouchesInView = true
+        tap.cancelsTouchesInView = false
         self.view.addGestureRecognizer(tap)
         
     }
@@ -59,7 +60,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
 
     func loadPosts() {
-        databaseRef.child("Schools").child("NYU").child("Posts").queryOrdered(byChild: "name").queryEqual(toValue: searchBar.text).observe(.childAdded) { (snapshot) in
+        databaseRef.child("Schools").child((Auth.auth().currentUser?.displayName)!).child("Posts").queryOrdered(byChild: "name").queryEqual(toValue: searchBar.text).observe(.childAdded) { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 let name = dict["name"] as! String
                 let description = dict["description"] as! String

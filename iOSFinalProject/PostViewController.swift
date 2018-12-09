@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseStorage
 import FirebaseDatabase
+import FirebaseAuth
 
 class PostViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
@@ -170,14 +171,16 @@ class PostViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
                     let desc = self.postDescription.text
                     let name = self.postName.text
                     let price = self.postPrice.text
-                    let postInfo = ["description": desc, "name": name, "price": price, "imageUrl": newUrl]
-                    let postRef = self.databaseRef.child("Schools").child("NYU").child("Posts").childByAutoId()
+                    let email = (Auth.auth().currentUser?.email)!
+                
+                    let postInfo = ["description": desc, "name": name, "price": price, "imageUrl": newUrl, "email": email]
+                    let postRef = self.databaseRef.child("Schools").child((Auth.auth().currentUser?.displayName)!).child("Posts").childByAutoId()
                     postRef.setValue(postInfo)
                     self.dismissView()
                 }
             }
         }
-        self.dismissView()
+        //self.dismissView()
         
     }
     

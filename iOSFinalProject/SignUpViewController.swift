@@ -30,9 +30,10 @@ class SignUpViewController: UIViewController {
         signUp()
     }
     
-    func parseEmail(email: String) {
+    func parseEmail(email: String) -> Bool{
         var newEmail = ""
         var isEmailName = false
+        var exists = true
         for index in email.indices {
             if(!isEmailName) {
                 if(email[index] == "@") {
@@ -58,10 +59,10 @@ class SignUpViewController: UIViewController {
                 alertController.addAction(defaultAction)
                 
                 self.present(alertController, animated: true, completion: nil)
-            }else {
-               
+                exists = false
             }
         }
+        return exists
     }
     
     func signUp() {
@@ -102,6 +103,7 @@ class SignUpViewController: UIViewController {
                     
                     self.present(alertController, animated: true, completion: nil)
                 }else {
+                    
                     Auth.auth().createUser(withEmail: self.emailText.text!, password: self.passwordText.text!) { (user, error) in
                         if(error != nil){
                             print(error?.localizedDescription ?? "No descriptno")
@@ -112,22 +114,38 @@ class SignUpViewController: UIViewController {
                             self.present(alertController, animated: true, completion: nil)
                         }else {
                             print("Signed up user: " + (user?.user.email)!)
-                            
-                            let newUser = ["username": self.usernameText.text, "email": self.emailText.text]
-                            
-                            dbRef.child("Users").childByAutoId().setValue(newUser, withCompletionBlock: { (error, ref) in
-                                if(error != nil) {
-                                    print(error?.localizedDescription)
-                                    let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
-                                    
-                                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                                    alertController.addAction(defaultAction)
-                                    self.present(alertController, animated: true, completion: nil)
-                                }else {
-                                    print("Woo!")
-                                    self.performSegue(withIdentifier: "SuccessSignUpSegue", sender: self)
+                            if let user = user?.user {
+                                let changeRequest = user.createProfileChangeRequest()
+                                
+                                changeRequest.displayName = newEmail
+                                //changeRequest.photoURL = URL(string: "https://example.com/jane-q-user/profile.jpg")
+                                changeRequest.commitChanges { error in
+                                    if let error = error {
+                                        print(error.localizedDescription)
+                                        let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                                        
+                                        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                                        alertController.addAction(defaultAction)
+                                        self.present(alertController, animated: true, completion: nil)
+                                    } else {
+                                        print("Profile updated")
+                                        let newUser = ["username": self.usernameText.text, "email": self.emailText.text]
+                                        
+                                        dbRef.child("Users").childByAutoId().setValue(newUser, withCompletionBlock: { (error, ref) in
+                                            if let error = error {
+                                                print(error.localizedDescription)
+                                                let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                                                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                                                alertController.addAction(defaultAction)
+                                                self.present(alertController, animated: true, completion: nil)
+                                            }else {
+                                                print("Woo!")
+                                                self.performSegue(withIdentifier: "SuccessSignUpSegue", sender: self)
+                                            }
+                                        })
+                                    }
                                 }
-                            })
+                            }
                         }
                     }
                 }
