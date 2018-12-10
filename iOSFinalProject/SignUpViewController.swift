@@ -23,6 +23,9 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
         // Do any additional setup after loading the view.
     }
     
@@ -63,6 +66,9 @@ class SignUpViewController: UIViewController {
             }
         }
         return exists
+    }
+    @IBAction func cancelCreateAccount(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     func signUp() {

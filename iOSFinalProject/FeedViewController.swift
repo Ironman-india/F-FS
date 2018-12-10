@@ -40,12 +40,13 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
                 //let email = dict["email"] as! String
                 let price = dict["price"] as! String
                 let imageUrl = dict["imageUrl"] as! String
+                let email = dict["email"] as? String ?? "ma4976@nyu.edu"
                 let storRef = Storage.storage().reference(forURL: imageUrl)
                 storRef.getData(maxSize: 1*2560*2560) { (data, error) in
                     if error == nil {
                         let image = UIImage(data: data!)
-                        let post = Post(n: name, d: description, p: price, e: "", im: image!)
-                        self.postArray.append(post)
+                        let post = Post(n: name, d: description, p: price, e: email, im: image!)
+                        self.postArray.insert(post, at: 0)
                         self.tableView.reloadData()
                     }else{
                         print(error?.localizedDescription ?? "")
@@ -86,30 +87,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
             vc.image = sendingPost.image
         }
     }
+    
+    @IBAction func unwindToFeed(segue:UIStoryboardSegue) {
+        
+    }
 }
 
-
-
-
-/*dispatchGroup.notify(queue: .main) {
- let postRef = Int(self.newestPostNum!)! - indexPath.row
- let stringRef = String(postRef)
- if let cellImage = self.imageDictionary[stringRef] {
- cell.postImage.image = cellImage
- if cell.postDescription.text != self.descriptionDictionary[stringRef] {
- cell.postDescription.text = self.descriptionDictionary[stringRef]
- }
- }else{
- //cell.postImage.image = UIImage(named: "EmptyPhoto.jpg")
- let group = DispatchGroup()
- cell.group = group
- cell.number = indexPath.row
- cell.hasGottenPost = false
- cell.getPost(postReference: stringRef)
- group.notify(queue: .main, execute: {
- self.imageDictionary[stringRef] = cell.postImage.image
- self.descriptionDictionary[stringRef] = cell.postDescription.text
- })
- 
- }
- }*/

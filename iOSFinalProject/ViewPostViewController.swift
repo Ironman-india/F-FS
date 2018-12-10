@@ -23,7 +23,6 @@ class ViewPostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,6 +30,7 @@ class ViewPostViewController: UIViewController {
         postDescription.text = desc
         postPrice.text = price
         postImage.image = image
+        self.title = post.email
     }
     @IBAction func viewCommentsPressed(_ sender: Any) {
         performSegue(withIdentifier: "ShowCommentsSegue", sender: self)

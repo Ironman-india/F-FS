@@ -20,6 +20,9 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var commentText: UITextField!
     
+    var dbRef: DatabaseQuery!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -33,8 +36,8 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = itemName
-        let dbRef = Database.database().reference().child("Schools").child((Auth.auth().currentUser?.displayName)!).child("Posts").queryOrdered(byChild: "name").queryEqual(toValue: itemName)
         
+        dbRef = Database.database().reference().child("Schools").child((Auth.auth().currentUser?.displayName)!).child("Posts").queryOrdered(byChild: "name").queryEqual(toValue: itemName)
         dbRef.observeSingleEvent(of: .value) { (snapshot) in
             print("asdfasdfasdfasdfsa")
             //print(snapshot.value)
@@ -54,6 +57,10 @@ class CommentsViewController: UIViewController, UITableViewDelegate, UITableView
                 })
             }
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        dbRef.removeAllObservers()
     }
     
     @IBAction func sendComment(_ sender: Any) {

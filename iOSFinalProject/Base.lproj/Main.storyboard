@@ -37,7 +37,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For Sale Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0r-in-0Q7">
-                                                    <rect key="frame" x="102" y="10" width="189.5" height="21"/>
+                                                    <rect key="frame" x="102" y="10" width="179" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="8oo-aS-BPa"/>
                                                     </constraints>
@@ -51,10 +51,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryL-ha-Wvx">
-                                                    <rect key="frame" x="299.5" y="10" width="59.5" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Priceless" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryL-ha-Wvx">
+                                                    <rect key="frame" x="289" y="10" width="70" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="59.5" id="INu-EJ-Vpd"/>
+                                                        <constraint firstAttribute="width" constant="70" id="INu-EJ-Vpd"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -225,7 +225,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="O54-05-1WY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Username" id="ZfA-Or-En7">
+                    <navigationItem key="navigationItem" id="ZfA-Or-En7">
                         <barButtonItem key="rightBarButtonItem" title="Log Out" id="UYk-tE-Khm">
                             <connections>
                                 <action selector="logOutPressed:" destination="ONz-Eg-pRZ" id="ddl-he-Vgh"/>
@@ -524,13 +524,15 @@
                         <outlet property="postName" destination="8kY-cx-WP4" id="Lhu-gG-4s2"/>
                         <outlet property="postPrice" destination="SZT-ip-d2S" id="c3b-UD-c9s"/>
                         <outlet property="uploadPhotoButton" destination="sci-ik-EIl" id="MQx-HF-8IH"/>
+                        <segue destination="QeI-Uh-3gK" kind="unwind" identifier="unwindSegueToFeed" unwindAction="unwindToFeedWithSegue:" id="JKo-JL-NL4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u1X-6A-b6g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="QeI-Uh-3gK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="7296.8000000000002" y="1695.2023988005999"/>
+            <point key="canvasLocation" x="5766" y="968"/>
         </scene>
-        <!--Michael Anastasio-->
+        <!--View Post View Controller-->
         <scene sceneID="GZZ-Oz-eFd">
             <objects>
                 <viewController id="dYS-tl-svY" customClass="ViewPostViewController" customModule="iOSFinalProject" customModuleProvider="target" sceneMemberID="viewController">
@@ -583,7 +585,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Osh-uO-EED"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Michael Anastasio" id="GPb-UE-Dzk">
+                    <navigationItem key="navigationItem" id="GPb-UE-Dzk">
                         <barButtonItem key="rightBarButtonItem" title="Comments" id="rdP-ly-ckq">
                             <connections>
                                 <action selector="viewCommentsPressed:" destination="dYS-tl-svY" id="Zvz-eI-Qbk"/>
@@ -767,6 +769,19 @@
                                     <action selector="signUpPressed:" destination="A1s-zT-7RW" eventType="touchUpInside" id="WiQ-wF-91O"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iT6-ea-8jJ">
+                                <rect key="frame" x="99.5" y="521" width="176" height="30"/>
+                                <state key="normal" title="Already have an account?"/>
+                                <connections>
+                                    <action selector="cancelCreateAccount:" destination="A1s-zT-7RW" eventType="touchUpInside" id="tJj-y9-447"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgX-Dy-f6s">
+                                <rect key="frame" x="178" y="473" width="19" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -777,6 +792,7 @@
                             <constraint firstItem="ZaK-kf-Qqk" firstAttribute="trailing" secondItem="kqi-NG-l1Y" secondAttribute="trailing" constant="27" id="I8K-Wr-lai"/>
                             <constraint firstItem="5AH-tW-Eis" firstAttribute="top" secondItem="kpH-Hl-SKe" secondAttribute="bottom" constant="22" id="IMy-HM-MrI"/>
                             <constraint firstItem="OJb-yo-Hdu" firstAttribute="leading" secondItem="ZaK-kf-Qqk" secondAttribute="leading" constant="27" id="L3I-Q5-7Wr"/>
+                            <constraint firstItem="ZaK-kf-Qqk" firstAttribute="bottom" secondItem="iT6-ea-8jJ" secondAttribute="bottom" constant="116" id="Ld1-F4-wNl"/>
                             <constraint firstItem="OJb-yo-Hdu" firstAttribute="top" secondItem="XtJ-dW-QuE" secondAttribute="bottom" constant="8" id="MLF-3b-Jwj"/>
                             <constraint firstItem="kpH-Hl-SKe" firstAttribute="leading" secondItem="ZaK-kf-Qqk" secondAttribute="leading" constant="27" id="RHQ-Fj-xrv"/>
                             <constraint firstItem="26u-Ow-TTg" firstAttribute="top" secondItem="R5c-pf-cvD" secondAttribute="bottom" constant="33" id="Tro-np-DCJ"/>
@@ -788,6 +804,9 @@
                             <constraint firstItem="bUw-dl-VIX" firstAttribute="leading" secondItem="ZaK-kf-Qqk" secondAttribute="leading" constant="27" id="gOU-Mr-87R"/>
                             <constraint firstItem="XtJ-dW-QuE" firstAttribute="leading" secondItem="ZaK-kf-Qqk" secondAttribute="leading" constant="27" id="iMt-TT-r4c"/>
                             <constraint firstItem="5AH-tW-Eis" firstAttribute="leading" secondItem="ZaK-kf-Qqk" secondAttribute="leading" constant="27" id="ncW-fZ-QLu"/>
+                            <constraint firstItem="iT6-ea-8jJ" firstAttribute="top" secondItem="rgX-Dy-f6s" secondAttribute="bottom" constant="27" id="ocH-be-T9z"/>
+                            <constraint firstItem="iT6-ea-8jJ" firstAttribute="centerX" secondItem="atm-TM-c9P" secondAttribute="centerX" id="qQP-dS-XgQ"/>
+                            <constraint firstItem="rgX-Dy-f6s" firstAttribute="centerX" secondItem="atm-TM-c9P" secondAttribute="centerX" id="tYM-KQ-PV7"/>
                             <constraint firstItem="R5c-pf-cvD" firstAttribute="centerX" secondItem="atm-TM-c9P" secondAttribute="centerX" id="vh6-k8-EkQ"/>
                             <constraint firstItem="R5c-pf-cvD" firstAttribute="top" secondItem="ZaK-kf-Qqk" secondAttribute="top" constant="40" id="xNN-rN-bCg"/>
                         </constraints>
@@ -999,7 +1018,7 @@
         <image name="user" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sjl-ea-imw"/>
+        <segue reference="D0C-tf-ucq"/>
         <segue reference="12e-Ri-znh"/>
         <segue reference="3Zn-oa-eKZ"/>
     </inferredMetricsTieBreakers>

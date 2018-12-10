@@ -176,7 +176,7 @@ class PostViewController: UIViewController, UITextFieldDelegate, UITextViewDeleg
                     let postInfo = ["description": desc, "name": name, "price": price, "imageUrl": newUrl, "email": email]
                     let postRef = self.databaseRef.child("Schools").child((Auth.auth().currentUser?.displayName)!).child("Posts").childByAutoId()
                     postRef.setValue(postInfo)
-                    self.dismissView()
+                    self.performSegue(withIdentifier: "unwindSegueToFeed", sender: self)
                 }
             }
         }

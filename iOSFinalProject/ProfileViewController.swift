@@ -55,10 +55,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let price = dict["price"] as! String
                 let imageUrl = dict["imageUrl"] as! String
                 let storRef = Storage.storage().reference(forURL: imageUrl)
+                let email = dict["email"] as? String ?? ""
                 storRef.getData(maxSize: 1*2560*2560) { (data, error) in
                     if error == nil {
                         let image = UIImage(data: data!)
-                        let post = Post(n: name, d: description, p: price, e: "", im: image!)
+                        let post = Post(n: name, d: description, p: price, e: email, im: image!)
                         self.postArray.append(post)
                         self.tableView.reloadData()
                     }else{
@@ -95,6 +96,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? ViewPostViewController {
+            vc.post = self.sendingPost
             vc.name = sendingPost.name
             vc.price = sendingPost.price
             vc.desc = sendingPost.description
